@@ -10,7 +10,7 @@ canvas = tkinter.Canvas(master, width=SIZE[0], height=SIZE[1])
 GRAVITY = 0.1
 
 class Oval:
-    def __init__(self, x1, y1, x2, y2, color, isPhysics=False, collision=[], mass=1):
+    def __init__(self, x1, y1, x2, y2, color, isPhysics=False, collision=[], mass=1, resistens=0.01):
         if collision == []:
             collision = [x1, y1, x2, y2]
         self.velocity = {'x': 0, 'y': 0}
@@ -21,10 +21,15 @@ class Oval:
         objects.append(self)
         self.collision = collision
         self.mass = mass
+        self.resistens = resistens
 
     def gravity(self):
         if self.isPhysics == True:
             self.velocity['y'] += GRAVITY
+
+
+        self.velocity['x'] -= self.velocity['x'] * self.resistens
+        self.velocity['y'] -= self.velocity['y'] * self.resistens
 
         canvas.move(self.object, self.velocity['x'], self.velocity['y'])
         print(self.velocity)
@@ -46,7 +51,7 @@ class Oval:
 
 
 canvas.create_rectangle((10, 1000), (1910, 1070), fill="red")
-oval = Oval(SIZE[0] // 2 - 50, SIZE[1] // 2 - 50, SIZE[0] // 2 + 50, SIZE[1] // 2 + 50, "green", isPhysics=True)
+oval = Oval(SIZE[0] // 2 - 50, SIZE[1] // 2 - 50, SIZE[0] // 2 + 50, SIZE[1] // 2 + 50, "green", isPhysics=False)
 
 
 def move():
@@ -63,7 +68,6 @@ def game():
     else:
         print("Ошибка")
     startTime = time.time()
-    oval.addForce(0, -0.1)
 
     # canvas.move(oval.object, 0, GRAVITY)
 
@@ -74,6 +78,8 @@ def game():
 
     move()
     master.after(1000 // 60, game)
+
+
 
 
 
