@@ -27,6 +27,7 @@ class Oval:
             self.velocity['y'] += GRAVITY
 
         canvas.move(self.object, self.velocity['x'], self.velocity['y'])
+        print(self.velocity)
 
     def move(self, x, y):
         canvas.move(self.object, x, y)
@@ -55,15 +56,15 @@ def move():
 
 
 def game():
-    move()
     global startTime
     endTime = time.time()
     if endTime - startTime != 0:
-        print((1000 // (endTime - startTime)) / 1000)
+        print(int(1 // (endTime - startTime)))
     else:
         print("Ошибка")
     startTime = time.time()
     oval.addForce(0, -0.1)
+
     # canvas.move(oval.object, 0, GRAVITY)
 
     # global y
@@ -71,7 +72,7 @@ def game():
     # y += 1
 
 
-
+    move()
     master.after(1000 // 60, game)
 
 
