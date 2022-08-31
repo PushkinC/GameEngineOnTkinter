@@ -42,3 +42,7 @@ class Oval:
     def setVelocity(self, x, y):
         self.velocity['x'] = x
         self.velocity['y'] = y
+
+    # def bind(self, tk, ref, func):
+    #     tk.bind(ref, func)
+
